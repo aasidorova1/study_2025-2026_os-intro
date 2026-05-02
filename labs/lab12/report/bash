@@ -1,0 +1,45 @@
+#!/bin/bash 
+
+#Определяю имя скрипта и путь к нему 
+SCRIPT_NAME=$(basename "$0")
+SCRIPT_PATH=$(realpath "$0")
+
+#Определяем каталог для бэкапов 
+BACKUP_DIR="HOME/backup"
+
+#Создаю каталог 
+mkdir -p "BACKUP_DIR"
+
+#Выбираю архиватор (zip)
+ARCHIVER="zip"
+
+#Создаю архив 
+case "$ARCHIVER" in
+	zip)
+
+ZIP_FILE="$BACKUP_DIR/${SCRIPT_NAME}.zip"
+	zip -j "$ZIP_FILE" "$SCRIPT_PATH" >
+/dev/null
+	echo "Создан архив: $ZIP_FILE"
+	;;
+      bzip2)
+
+BZ2_FILE="$BACKUP_DIR/${SCRIPT_NAME}.bz2
+"
+	bzip2 -c "$SCRIPT_PATH" > "$BZ2_FILE"
+	echo "Создан архив: $BZIP2_FILE"
+	;;
+     tar)
+
+TAR_FILE="$BACKUP_DIR/${SCRIPT_NAME}.tar"
+	tar -cf "$TAR_FILE" -C "$(dirname
+"$SCRIPT_PATH")" "$SCRIPT_NAME"
+	echo "Создан архив: $TAR_FILE"
+	;;
+      *)
+	echo "Неизвестный архиватор: 
+$ARCHIVER"
+	exit 1
+	;;
+esac
+
